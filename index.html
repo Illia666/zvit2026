@@ -7,27 +7,33 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip" href="#all">До таблиці завдань</a>
 <header><div class="hd"><img alt="Державна служба України у справах дітей" src="logo.png" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'Державна служба України у справах дітей'}))">
-<div class="hr"><b>План роботи на 2026 рік</b><span id="src"></span> <span id="msg"></span><br><button id="rf">Оновити дані</button> <button id="pr">Друк / PDF</button> <button id="up">Відкрити xlsx</button><input type="file" id="fi" accept=".xlsx,.xls" hidden></div></div></header>
-<div class="w">
+<div class="hr"><b>План роботи на 2026 рік</b><span id="src"></span> <span id="msg"></span><br><button id="rf">Оновити дані</button> <button id="pr">Звіт для друку</button> <button id="th">Тема: авто</button> <button id="up">Відкрити xlsx</button><input type="file" id="fi" accept=".xlsx,.xls" hidden></div></div></header>
+<div class="w" id="main">
 <h1>Виконання Плану роботи</h1>
-<div class="g top"><div class="c hero" id="hero"></div><div class="g k4" id="kpi"></div></div>
+<div class="g top"><div class="c hero" id="hero" data-act="done" role="button" tabindex="0" title="Натисніть, щоб показати виконані завдання"></div><div class="g k4" id="kpi"></div></div>
 <div class="c att" id="att" style="margin-top:14px"></div>
 <div class="g dg" id="dir"></div>
+<div class="c" id="chc" hidden style="margin-top:14px"><h2>Що змінилося</h2><div id="chg"></div></div>
 <div class="c" id="trendc" hidden style="margin-top:14px"><h2>Динаміка виконання</h2><div id="trend"></div></div>
 <div class="g two">
  <div class="c"><h2>Завдання за розділами плану</h2><div class="cols" id="sec"></div><div class="lgd"><span><i class="ok"></i>виконано</span><span><i class="no"></i>не виконано</span><span>висота стовпця — кількість завдань</span></div></div>
- <div class="c"><h2>Підрозділи (основні виконавці)</h2><div id="unit"></div></div>
+ <div class="c"><h2>Підрозділи (основні виконавці)</h2><label class="sw"><input type="checkbox" id="co"> рахувати й співвиконавців</label><div id="unit"></div><p id="grp" class="mu" style="font-size:12px"></p></div>
 </div>
+<div class="c" style="margin-top:14px"><h2>Підрозділи × розділи плану</h2><p class="mu" style="margin:0 0 10px;font-size:12px">Число — скільки завдань не виконано, ✓ — усе виконано. Натисніть на клітинку, щоб побачити завдання.</p><div class="tw"><table id="mx" class="mxt"></table></div></div>
 <div class="c" style="margin-top:14px"><h2>Контроль строкових завдань <span class="mu" id="dls"></span> <button id="e3">CSV</button></h2>
 <div class="g k4" id="dlk" style="margin-bottom:14px"></div>
+<div id="cal"></div>
 <div class="tw"><table><thead><tr><th>Рядок</th><th>Зміст строкового завдання</th><th>Строк</th><th>Відповідальний підрозділ</th><th>Статус за звітом</th><th>Контроль строку</th></tr></thead><tbody id="dlb"></tbody></table></div>
 </div>
 <div class="c" id="all" style="margin-top:14px"><h2>Усі завдання <span class="mu" id="cnt"></span> <button id="e1">CSV: поточний відбір</button> <button id="e2">CSV: невиконані</button> <button id="e0">Скинути фільтри</button></h2>
 <div class="ctl"><input id="q" placeholder="Пошук за текстом завдання…"><select id="fs"><option value="">Усі статуси</option><option value="1">Виконано</option><option value="0">Не виконано</option></select>
 <select id="fsec"><option value="">Усі розділи</option></select><select id="fu"><option value="">Усі підрозділи</option></select></div>
-<div class="tw"><table><thead><tr><th>№</th><th>Завдання (натисніть, щоб розгорнути)</th><th>Строк</th><th>Підрозділ</th><th>Статус</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+<div class="tw"><table><thead><tr><th data-sort="id" role="button" tabindex="0">№<i></i></th><th>Завдання (натисніть, щоб розгорнути)</th><th data-sort="term" role="button" tabindex="0">Строк<i></i></th><th data-sort="u" role="button" tabindex="0">Підрозділ<i></i></th><th data-sort="st" role="button" tabindex="0">Статус<i></i></th></tr></thead><tbody id="tb"></tbody></table></div><div id="mr" class="mr"></div></div>
 </div>
+<div id="pov" hidden><div class="pbk" data-close></div><aside class="pn" id="pn" role="dialog" aria-modal="true" aria-label="Картка підрозділу" tabindex="-1"></aside></div>
+<div class="w" id="report"></div>
 <!-- SheetJS потрібен лише для кнопки «Відкрити xlsx» (потрібен інтернет) -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="data.js"></script>
